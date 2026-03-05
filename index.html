@@ -3,53 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신약 신청 시스템 2026</title>
+    <title>신약 신청 관리 시스템 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
         body { font-family: 'Pretendard', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+<body class="bg-slate-50 min-h-screen p-4 md:p-8 text-slate-800">
 
-    <div class="max-w-6xl mx-auto space-y-8">
-        <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
-            <div class="bg-indigo-700 p-6 text-white text-center">
-                <h1 class="text-2xl font-bold">신약 신청서 작성</h1>
+    <div class="max-w-7xl mx-auto space-y-6">
+        <div class="bg-white shadow-md rounded-xl border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-600 p-4 text-white font-bold flex justify-between items-center">
+                <span>💊 신규 접수 및 수정</span>
+                <button onclick="resetForm()" class="text-xs bg-indigo-500 hover:bg-indigo-400 px-2 py-1 rounded">새로 쓰기</button>
             </div>
-            <form id="applicationForm" class="p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-                <input type="text" id="productName" placeholder="제품명" required class="border p-2 rounded outline-none focus:border-indigo-500">
-                <input type="text" id="dosage" placeholder="함량(용량)" required class="border p-2 rounded outline-none focus:border-indigo-500">
-                <input type="text" id="ingredient" placeholder="성분명" required class="border p-2 rounded outline-none focus:border-indigo-500">
-                <input type="text" id="company" placeholder="제약회사" required class="border p-2 rounded outline-none focus:border-indigo-500">
-                <select id="insurance" class="border p-2 rounded"><option value="보험">보험</option><option value="비보험">비보험</option></select>
+            <form id="drugForm" class="p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input type="hidden" id="docId"> <input type="text" id="productName" placeholder="제품명" required class="border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="text" id="dosage" placeholder="함량(용량)" required class="border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="text" id="ingredient" placeholder="성분명" required class="border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="text" id="company" placeholder="제약회사" required class="border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                <select id="insurance" class="border p-2 rounded bg-white"><option value="보험">보험</option><option value="비보험">비보험</option></select>
                 <input type="text" id="applicant" placeholder="신청의료인" required class="border p-2 rounded">
                 <input type="text" id="existingDrug" placeholder="기존약" class="border p-2 rounded">
                 <input type="text" id="existingCompany" placeholder="기존약 제약회사" class="border p-2 rounded">
                 <textarea id="reason" placeholder="변경 사유" class="border p-2 rounded md:col-span-3"></textarea>
-                <button type="submit" id="submitBtn" class="bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-800 transition">전송하기</button>
+                <button type="submit" id="submitBtn" class="bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-700 transition">저장하기</button>
             </form>
         </div>
 
-        <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
-            <div class="bg-gray-800 p-4 text-white flex justify-between items-center">
-                <h2 class="text-lg font-bold">실시간 접수 현황 (2026 상반기)</h2>
-                <span id="dataCount" class="bg-gray-700 px-3 py-1 rounded text-sm">0건 접수됨</span>
+        <div class="bg-white shadow-md rounded-xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-800 p-4 text-white flex justify-between items-center">
+                <h2 class="font-bold">실시간 신청 현황</h2>
+                <div id="loader" class="hidden animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left text-sm border-collapse">
                     <thead>
-                        <tr class="bg-gray-50 border-b">
-                            <th class="p-3 text-sm font-semibold text-gray-600">신청일시</th>
-                            <th class="p-3 text-sm font-semibold text-gray-600">제품명</th>
-                            <th class="p-3 text-sm font-semibold text-gray-600">성분명</th>
-                            <th class="p-3 text-sm font-semibold text-gray-600">제약사</th>
-                            <th class="p-3 text-sm font-semibold text-gray-600">신청인</th>
-                            <th class="p-3 text-sm font-semibold text-gray-600">보험</th>
+                        <tr class="bg-slate-100 border-b border-slate-200">
+                            <th class="p-4 font-semibold">제품명</th>
+                            <th class="p-4 font-semibold">성분명</th>
+                            <th class="p-4 font-semibold">신청인</th>
+                            <th class="p-4 font-semibold">보험</th>
+                            <th class="p-4 font-semibold text-center">관리</th>
                         </tr>
                     </thead>
-                    <tbody id="listBody" class="text-sm divide-y">
-                        <tr><td colspan="6" class="p-10 text-center text-gray-400">데이터를 불러오는 중...</td></tr>
+                    <tbody id="listBody" class="divide-y divide-slate-100">
+                        <tr><td colspan="5" class="p-10 text-center text-slate-400">데이터를 불러오는 중...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -58,7 +58,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, addDoc, collection, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCkWnacJS_3U3sYrDeLv4BvrI73hLiKv5k",
@@ -71,59 +71,96 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const colRef = collection(db, "submissions_2026");
 
-        // [기능 1] 데이터 실시간 불러오기
-        const q = query(collection(db, "submissions_2026"), orderBy("createdAt", "desc"));
-        onSnapshot(q, (querySnapshot) => {
+        // [1] 데이터 실시간 불러오기
+        const q = query(colRef, orderBy("createdAt", "desc"));
+        onSnapshot(q, (snapshot) => {
             const listBody = document.getElementById('listBody');
-            const dataCount = document.getElementById('dataCount');
             let html = "";
-            
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const date = data.createdAt ? data.createdAt.toDate().toLocaleString('ko-KR') : '-';
+            snapshot.forEach((document) => {
+                const data = document.data();
+                const id = document.id;
                 html += `
-                    <tr class="hover:bg-blue-50 transition">
-                        <td class="p-3 text-gray-500 text-xs">${date}</td>
-                        <td class="p-3 font-semibold">${data.productName}</td>
-                        <td class="p-3">${data.ingredient}</td>
-                        <td class="p-3 text-gray-600">${data.company}</td>
-                        <td class="p-3 text-blue-600 font-medium">${data.applicant}</td>
-                        <td class="p-3"><span class="px-2 py-1 rounded-full text-xs ${data.insurance === '보험' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}">${data.insurance}</span></td>
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-4 font-bold text-slate-700">${data.productName}</td>
+                        <td class="p-4 text-slate-500">${data.ingredient}</td>
+                        <td class="p-4 font-medium text-indigo-600">${data.applicant}</td>
+                        <td class="p-4">
+                            <span class="px-2 py-0.5 rounded-full text-xs ${data.insurance === '보험' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}">${data.insurance}</span>
+                        </td>
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="editData('${id}', ${JSON.stringify(data).replace(/"/g, '&quot;')})" class="text-blue-600 hover:underline">수정</button>
+                            <button onclick="deleteData('${id}')" class="text-red-600 hover:underline">삭제</button>
+                        </td>
                     </tr>
                 `;
             });
-            listBody.innerHTML = html || '<tr><td colspan="6" class="p-10 text-center text-gray-400">접수된 내역이 없습니다.</td></tr>';
-            dataCount.innerText = `${querySnapshot.size}건 접수됨`;
+            listBody.innerHTML = html || '<tr><td colspan="5" class="p-10 text-center text-slate-400">내역이 없습니다.</td></tr>';
         });
 
-        // [기능 2] 신청서 전송하기
-        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+        // [2] 저장 및 수정 로직
+        document.getElementById('drugForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
+            const docId = document.getElementById('docId').value;
+            
+            const payload = {
+                productName: document.getElementById('productName').value,
+                dosage: document.getElementById('dosage').value,
+                ingredient: document.getElementById('ingredient').value,
+                company: document.getElementById('company').value,
+                insurance: document.getElementById('insurance').value,
+                applicant: document.getElementById('applicant').value,
+                existingDrug: document.getElementById('existingDrug').value,
+                existingCompany: document.getElementById('existingCompany').value,
+                reason: document.getElementById('reason').value,
+                updatedAt: serverTimestamp()
+            };
 
+            btn.disabled = true;
             try {
-                await addDoc(collection(db, "submissions_2026"), {
-                    productName: document.getElementById('productName').value,
-                    dosage: document.getElementById('dosage').value,
-                    ingredient: document.getElementById('ingredient').value,
-                    company: document.getElementById('company').value,
-                    insurance: document.getElementById('insurance').value,
-                    applicant: document.getElementById('applicant').value,
-                    existingDrug: document.getElementById('existingDrug').value,
-                    existingCompany: document.getElementById('existingCompany').value,
-                    reason: document.getElementById('reason').value,
-                    createdAt: serverTimestamp()
-                });
-                alert("접수 완료!");
-                e.target.reset();
-            } catch (error) {
-                alert("에러 발생: " + error.message);
-            } finally {
-                btn.disabled = false;
-            }
+                if (docId) {
+                    await updateDoc(doc(db, "submissions_2026", docId), payload);
+                    alert("수정되었습니다.");
+                } else {
+                    payload.createdAt = serverTimestamp();
+                    await addDoc(colRef, payload);
+                    alert("저장되었습니다.");
+                }
+                resetForm();
+            } catch (err) { alert("오류: " + err.message); }
+            btn.disabled = false;
         });
+
+        // [3] 삭제 기능 (전역 함수로 등록)
+        window.deleteData = async (id) => {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                await deleteDoc(doc(db, "submissions_2026", id));
+            }
+        };
+
+        // [4] 수정 데이터 폼에 채우기
+        window.editData = (id, data) => {
+            document.getElementById('docId').value = id;
+            document.getElementById('productName').value = data.productName;
+            document.getElementById('dosage').value = data.dosage;
+            document.getElementById('ingredient').value = data.ingredient;
+            document.getElementById('company').value = data.company;
+            document.getElementById('insurance').value = data.insurance;
+            document.getElementById('applicant').value = data.applicant;
+            document.getElementById('existingDrug').value = data.existingDrug || '';
+            document.getElementById('existingCompany').value = data.existingCompany || '';
+            document.getElementById('reason').value = data.reason;
+            document.getElementById('submitBtn').innerText = "내용 수정하기";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.resetForm = () => {
+            document.getElementById('drugForm').reset();
+            document.getElementById('docId').value = "";
+            document.getElementById('submitBtn').innerText = "저장하기";
+        };
     </script>
 </body>
 </html>
