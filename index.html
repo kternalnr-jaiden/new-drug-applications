@@ -6,65 +6,64 @@
     <title>신약 신청 시스템 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen p-4 md:p-8">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
-    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
-        <div class="bg-indigo-700 p-6">
-            <h1 class="text-white text-xl font-bold tracking-tight">신약 신청서 (2026 상반기)</h1>
-            <p class="text-indigo-100 text-sm mt-1">GitHub & Firebase 실시간 연동 모듈</p>
+    <div class="max-w-4xl w-full bg-white shadow-2xl rounded-2xl overflow-hidden">
+        <div class="bg-blue-700 p-8 text-white text-center">
+            <h1 class="text-3xl font-bold">신약 신청서 (2026 상반기)</h1>
+            <p class="mt-2 text-blue-100 opacity-90">내용을 입력하신 후 전송 버튼을 눌러주세요.</p>
         </div>
 
-        <form id="applicationForm" class="p-6 space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">제품명</label>
-                    <input type="text" id="productName" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">함량(용량)</label>
-                    <input type="text" id="dosage" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">성분명</label>
-                    <input type="text" id="ingredient" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">제약회사</label>
-                    <input type="text" id="company" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">보험/비보험</label>
-                    <select id="insurance" class="w-full border rounded p-2 bg-white">
-                        <option value="보험">보험</option>
-                        <option value="비보험">비보험</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">신청의료인</label>
-                    <input type="text" id="applicant" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">기존약 (대체대상)</label>
-                    <input type="text" id="existingDrug" class="w-full border rounded p-2">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">기존약 제약회사</label>
-                    <input type="text" id="existingCompany" class="w-full border rounded p-2">
-                </div>
+        <form id="applicationForm" class="p-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">제품명</label>
+                <input type="text" id="productName" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">함량(용량)</label>
+                <input type="text" id="dosage" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">성분명</label>
+                <input type="text" id="ingredient" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">제약회사</label>
+                <input type="text" id="company" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">보험/비보험</label>
+                <select id="insurance" class="w-full border-2 border-gray-200 rounded-lg p-3 bg-white outline-none">
+                    <option value="보험">보험</option>
+                    <option value="비보험">비보험</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">신청의료인</label>
+                <input type="text" id="applicant" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">기존약 (대체대상)</label>
+                <input type="text" id="existingDrug" class="w-full border-2 border-gray-200 rounded-lg p-3">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">기존약 제약회사</label>
+                <input type="text" id="existingCompany" class="w-full border-2 border-gray-200 rounded-lg p-3">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-gray-600 mb-1">변경 사유</label>
+                <textarea id="reason" rows="4" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition" placeholder="신규 도입 사유를 상세히 입력해 주세요."></textarea>
             </div>
 
-            <div class="pt-2">
-                <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">변경 사유</label>
-                <textarea id="reason" rows="3" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+            <div class="md:col-span-2 pt-4">
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg transition duration-200 text-lg">
+                    신청서 서버 전송
+                </button>
             </div>
-
-            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition duration-200">
-                신청서 서버 전송
-            </button>
         </form>
     </div>
 
@@ -72,7 +71,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // 제공해주신 Config 적용
+        // 사용자님의 Firebase 설정
         const firebaseConfig = {
             apiKey: "AIzaSyCkWnacJS_3U3sYrDeLv4BvrI73hLiKv5k",
             authDomain: "new-drug-applications.firebaseapp.com",
@@ -82,16 +81,24 @@
             appId: "1:582639560208:web:fbb0482c7721f0beddcc95"
         };
 
+        // 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // 제출 이벤트 처리
         document.getElementById('applicationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
+            
+            // 전송 중 버튼 비활성화
             btn.disabled = true;
-            btn.innerHTML = '처리 중...';
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 mr-3 border-4 border-white border-t-transparent rounded-full inline-block" viewBox="0 0 24 24"></svg>
+                서버 전송 중...
+            `;
 
             try {
+                // Firestore의 'submissions_2026' 컬렉션에 데이터 저장
                 await addDoc(collection(db, "submissions_2026"), {
                     productName: document.getElementById('productName').value,
                     dosage: document.getElementById('dosage').value,
@@ -102,16 +109,17 @@
                     existingDrug: document.getElementById('existingDrug').value,
                     existingCompany: document.getElementById('existingCompany').value,
                     reason: document.getElementById('reason').value,
-                    timestamp: serverTimestamp()
+                    createdAt: serverTimestamp()
                 });
-                alert("신청서가 성공적으로 저장되었습니다.");
-                e.target.reset();
-            } catch (err) {
-                console.error(err);
-                alert("저장 실패: Firebase 규칙(Rules)을 확인하세요.");
+
+                alert("✅ 신청서가 성공적으로 서버에 저장되었습니다!");
+                e.target.reset(); // 입력창 초기화
+            } catch (error) {
+                console.error("Error:", error);
+                alert("❌ 전송 실패! Firebase Console에서 Rules(규칙)을 허용해 주세요.");
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '신청서 서버 전송';
+                btn.innerText = "신청서 서버 전송";
             }
         });
     </script>
