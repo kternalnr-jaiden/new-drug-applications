@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신약 신청 시스템 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+        <div class="bg-indigo-700 p-6">
+            <h1 class="text-white text-xl font-bold tracking-tight">신약 신청서 (2026 상반기)</h1>
+            <p class="text-indigo-100 text-sm mt-1">GitHub & Firebase 실시간 연동 모듈</p>
+        </div>
+
+        <form id="applicationForm" class="p-6 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">제품명</label>
+                    <input type="text" id="productName" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">함량(용량)</label>
+                    <input type="text" id="dosage" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">성분명</label>
+                    <input type="text" id="ingredient" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">제약회사</label>
+                    <input type="text" id="company" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">보험/비보험</label>
+                    <select id="insurance" class="w-full border rounded p-2 bg-white">
+                        <option value="보험">보험</option>
+                        <option value="비보험">비보험</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">신청의료인</label>
+                    <input type="text" id="applicant" required class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">기존약 (대체대상)</label>
+                    <input type="text" id="existingDrug" class="w-
