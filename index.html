@@ -10,68 +10,56 @@
         body { font-family: 'Pretendard', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
 
-    <div class="max-w-4xl w-full bg-white shadow-2xl rounded-2xl overflow-hidden">
-        <div class="bg-blue-700 p-8 text-white text-center">
-            <h1 class="text-3xl font-bold">신약 신청서 (2026 상반기)</h1>
-            <p class="mt-2 text-blue-100 opacity-90">내용을 입력하신 후 전송 버튼을 눌러주세요.</p>
+    <div class="max-w-6xl mx-auto space-y-8">
+        <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <div class="bg-indigo-700 p-6 text-white text-center">
+                <h1 class="text-2xl font-bold">신약 신청서 작성</h1>
+            </div>
+            <form id="applicationForm" class="p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input type="text" id="productName" placeholder="제품명" required class="border p-2 rounded outline-none focus:border-indigo-500">
+                <input type="text" id="dosage" placeholder="함량(용량)" required class="border p-2 rounded outline-none focus:border-indigo-500">
+                <input type="text" id="ingredient" placeholder="성분명" required class="border p-2 rounded outline-none focus:border-indigo-500">
+                <input type="text" id="company" placeholder="제약회사" required class="border p-2 rounded outline-none focus:border-indigo-500">
+                <select id="insurance" class="border p-2 rounded"><option value="보험">보험</option><option value="비보험">비보험</option></select>
+                <input type="text" id="applicant" placeholder="신청의료인" required class="border p-2 rounded">
+                <input type="text" id="existingDrug" placeholder="기존약" class="border p-2 rounded">
+                <input type="text" id="existingCompany" placeholder="기존약 제약회사" class="border p-2 rounded">
+                <textarea id="reason" placeholder="변경 사유" class="border p-2 rounded md:col-span-3"></textarea>
+                <button type="submit" id="submitBtn" class="bg-indigo-600 text-white font-bold py-2 rounded hover:bg-indigo-800 transition">전송하기</button>
+            </form>
         </div>
 
-        <form id="applicationForm" class="p-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">제품명</label>
-                <input type="text" id="productName" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+        <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <div class="bg-gray-800 p-4 text-white flex justify-between items-center">
+                <h2 class="text-lg font-bold">실시간 접수 현황 (2026 상반기)</h2>
+                <span id="dataCount" class="bg-gray-700 px-3 py-1 rounded text-sm">0건 접수됨</span>
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">함량(용량)</label>
-                <input type="text" id="dosage" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b">
+                            <th class="p-3 text-sm font-semibold text-gray-600">신청일시</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">제품명</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">성분명</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">제약사</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">신청인</th>
+                            <th class="p-3 text-sm font-semibold text-gray-600">보험</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listBody" class="text-sm divide-y">
+                        <tr><td colspan="6" class="p-10 text-center text-gray-400">데이터를 불러오는 중...</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">성분명</label>
-                <input type="text" id="ingredient" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">제약회사</label>
-                <input type="text" id="company" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">보험/비보험</label>
-                <select id="insurance" class="w-full border-2 border-gray-200 rounded-lg p-3 bg-white outline-none">
-                    <option value="보험">보험</option>
-                    <option value="비보험">비보험</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">신청의료인</label>
-                <input type="text" id="applicant" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">기존약 (대체대상)</label>
-                <input type="text" id="existingDrug" class="w-full border-2 border-gray-200 rounded-lg p-3">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">기존약 제약회사</label>
-                <input type="text" id="existingCompany" class="w-full border-2 border-gray-200 rounded-lg p-3">
-            </div>
-            <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-gray-600 mb-1">변경 사유</label>
-                <textarea id="reason" rows="4" required class="w-full border-2 border-gray-200 rounded-lg p-3 focus:border-blue-500 outline-none transition" placeholder="신규 도입 사유를 상세히 입력해 주세요."></textarea>
-            </div>
-
-            <div class="md:col-span-2 pt-4">
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg transition duration-200 text-lg">
-                    신청서 서버 전송
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, addDoc, collection, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // 사용자님의 Firebase 설정
         const firebaseConfig = {
             apiKey: "AIzaSyCkWnacJS_3U3sYrDeLv4BvrI73hLiKv5k",
             authDomain: "new-drug-applications.firebaseapp.com",
@@ -81,24 +69,41 @@
             appId: "1:582639560208:web:fbb0482c7721f0beddcc95"
         };
 
-        // 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 제출 이벤트 처리
+        // [기능 1] 데이터 실시간 불러오기
+        const q = query(collection(db, "submissions_2026"), orderBy("createdAt", "desc"));
+        onSnapshot(q, (querySnapshot) => {
+            const listBody = document.getElementById('listBody');
+            const dataCount = document.getElementById('dataCount');
+            let html = "";
+            
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const date = data.createdAt ? data.createdAt.toDate().toLocaleString('ko-KR') : '-';
+                html += `
+                    <tr class="hover:bg-blue-50 transition">
+                        <td class="p-3 text-gray-500 text-xs">${date}</td>
+                        <td class="p-3 font-semibold">${data.productName}</td>
+                        <td class="p-3">${data.ingredient}</td>
+                        <td class="p-3 text-gray-600">${data.company}</td>
+                        <td class="p-3 text-blue-600 font-medium">${data.applicant}</td>
+                        <td class="p-3"><span class="px-2 py-1 rounded-full text-xs ${data.insurance === '보험' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}">${data.insurance}</span></td>
+                    </tr>
+                `;
+            });
+            listBody.innerHTML = html || '<tr><td colspan="6" class="p-10 text-center text-gray-400">접수된 내역이 없습니다.</td></tr>';
+            dataCount.innerText = `${querySnapshot.size}건 접수됨`;
+        });
+
+        // [기능 2] 신청서 전송하기
         document.getElementById('applicationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            
-            // 전송 중 버튼 비활성화
             btn.disabled = true;
-            btn.innerHTML = `
-                <svg class="animate-spin h-5 w-5 mr-3 border-4 border-white border-t-transparent rounded-full inline-block" viewBox="0 0 24 24"></svg>
-                서버 전송 중...
-            `;
 
             try {
-                // Firestore의 'submissions_2026' 컬렉션에 데이터 저장
                 await addDoc(collection(db, "submissions_2026"), {
                     productName: document.getElementById('productName').value,
                     dosage: document.getElementById('dosage').value,
@@ -111,15 +116,12 @@
                     reason: document.getElementById('reason').value,
                     createdAt: serverTimestamp()
                 });
-
-                alert("✅ 신청서가 성공적으로 서버에 저장되었습니다!");
-                e.target.reset(); // 입력창 초기화
+                alert("접수 완료!");
+                e.target.reset();
             } catch (error) {
-                console.error("Error:", error);
-                alert("❌ 전송 실패! Firebase Console에서 Rules(규칙)을 허용해 주세요.");
+                alert("에러 발생: " + error.message);
             } finally {
                 btn.disabled = false;
-                btn.innerText = "신청서 서버 전송";
             }
         });
     </script>
